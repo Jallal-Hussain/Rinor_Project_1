@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { styled, useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
+import { Box, Typography } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiAppBar from "@mui/material/AppBar";
@@ -17,13 +17,17 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import GroupIcon from "@mui/icons-material/Group";
 import HotelIcon from "@mui/icons-material/Hotel";
 import NightShelterIcon from "@mui/icons-material/NightShelter";
 import BookIcon from "@mui/icons-material/Book";
 import Dashboard from "./Components/Dashboard";
-import Bookings from "./Components/Bookings";
-import Hotels from "./Components/Hotels";
-import Rooms from "./Components/Rooms";
+import Bookings from "./Components/Bookings/Bookings";
+import Hotels from "./Components/Hotels/Hotels";
+import Rooms from "./Components/Rooms/Rooms";
+import Users from "./Components/Users/Users";
+import LoginForm from "./Components/LoginForm/Login";
+import Register from "./Components/LoginForm/Register";
 
 function App() {
   const drawerWidth = 240;
@@ -86,10 +90,11 @@ function App() {
 
   // Define an array of objects for menu items
   const menuItems = [
-    { text: "Dashboard", icon: <DashboardIcon />, path: "/" },
-    { text: "Hotels", icon: <NightShelterIcon />, path: "/hotels" },
-    { text: "Bookings", icon: <BookIcon />, path: "/bookings" },
-    { text: "Rooms", icon: <HotelIcon />, path: "/rooms" },
+    { title: "Dashboard", icon: <DashboardIcon />, path: "/" },
+    { title: "Users", icon: <GroupIcon />, path: "/users" },
+    { title: "Hotels", icon: <NightShelterIcon />, path: "/hotels" },
+    { title: "Bookings", icon: <BookIcon />, path: "/bookings" },
+    { title: "Rooms", icon: <HotelIcon />, path: "/rooms" },
   ];
 
   return (
@@ -123,6 +128,16 @@ function App() {
                 style={{ maxWidth: "90%", height: "auto " }}
               />
             </Box>
+            <Box sx={{ flexGrow: 1 }} />
+            {/* Add Link to LoginForm */}
+            <Box>
+              <Link
+                to="/login"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Typography variant="body1">Login</Typography>
+              </Link>
+            </Box>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -150,19 +165,23 @@ function App() {
           <Divider />
           <List>
             {menuItems.map((item, index) => (
-              <ListItem key={item.text} disablePadding>
+              <ListItem key={item.title} disablePadding>
                 <ListItemButton component={Link} to={item.path}>
                   <ListItemIcon>{item.icon}</ListItemIcon>
-                  <ListItemText primary={item.text} />
+                  <ListItemText primary={item.title} />
                 </ListItemButton>
               </ListItem>
             ))}
           </List>
+          <Divider />
         </Drawer>
         <Main open={open}>
           <DrawerHeader />
           <Routes>
             <Route path="/" exact element={<Dashboard />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/users" element={<Users />} />
             <Route path="/hotels" element={<Hotels />} />
             <Route path="/bookings" element={<Bookings />} />
             <Route path="/rooms" element={<Rooms />} />
