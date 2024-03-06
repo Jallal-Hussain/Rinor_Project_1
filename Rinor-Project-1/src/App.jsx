@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -7,7 +7,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -19,11 +18,12 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import HotelIcon from "@mui/icons-material/Hotel";
+import NightShelterIcon from "@mui/icons-material/NightShelter";
 import BookIcon from "@mui/icons-material/Book";
-import  Dashboard from "./Components/Dashboard";
-import  Bookings from "./Components/Bookings";
-import  Hotels from "./Components/Hotels";
-import  Rooms from "./Components/Rooms";
+import Dashboard from "./Components/Dashboard";
+import Bookings from "./Components/Bookings";
+import Hotels from "./Components/Hotels";
+import Rooms from "./Components/Rooms";
 
 function App() {
   const drawerWidth = 240;
@@ -87,13 +87,13 @@ function App() {
   // Define an array of objects for menu items
   const menuItems = [
     { text: "Dashboard", icon: <DashboardIcon />, path: "/" },
-    { text: "Hotels", icon: <HotelIcon />, path: "/hotels" },
+    { text: "Hotels", icon: <NightShelterIcon />, path: "/hotels" },
     { text: "Bookings", icon: <BookIcon />, path: "/bookings" },
     { text: "Rooms", icon: <HotelIcon />, path: "/rooms" },
   ];
 
   return (
-    <BrowserRouter>
+    <Router>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar position="fixed" open={open}>
@@ -107,9 +107,22 @@ function App() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap component="div">
-              Rinor
-            </Typography>
+            {/* Logo */}
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                minWidth: 100,
+                width: 120,
+                height: 50,
+              }}
+            >
+              <img
+                src="./src/assets/logo.png"
+                alt="RINOR"
+                style={{ maxWidth: "90%", height: "auto " }}
+              />
+            </Box>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -149,14 +162,15 @@ function App() {
         <Main open={open}>
           <DrawerHeader />
           <Routes>
-            <Route path="/" exact component={Dashboard} />
-            <Route path="/hotels" component={Hotels} />
-            <Route path="/bookings" component={Bookings} />
-            <Route path="/rooms" component={Rooms} />
+            <Route path="/" exact element={<Dashboard />} />
+            <Route path="/hotels" element={<Hotels />} />
+            <Route path="/bookings" element={<Bookings />} />
+            <Route path="/rooms" element={<Rooms />} />
           </Routes>
         </Main>
       </Box>
-    </BrowserRouter>
+    </Router>
   );
 }
+
 export default App;

@@ -1,7 +1,9 @@
 import React from "react";
 
 function Rooms() {
-  return <div>Rooms</div>;
+  return (
+    <h1>Rooms</h1>
+  )
 }
 
 export default Rooms;
