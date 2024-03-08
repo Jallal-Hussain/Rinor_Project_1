@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { Edit, Delete } from '@mui/icons-material';
 // MRT Imports
 import {
   MaterialReactTable,
@@ -11,21 +10,21 @@ import {
   Box,
   ListItemIcon,
   MenuItem,
-  lighten,
 } from '@mui/material';
 
 // Icons Imports
-import { AccountCircle, Send } from '@mui/icons-material';
+import { Edit, Delete } from '@mui/icons-material';
 
-// Mock Data
-import { data } from './makeData';
+
+// Users Data
+import { data } from './usersData';
 
 const Example = () => {
   const columns = useMemo(
     () => [
       {
-        id: 'employee', // id used to define `group` column
-        header: 'Employee',
+        id: 'users', // id used to define `group` column
+        header: 'Users',
         columns: [
           {
             accessorFn: (row) => `${row.firstName} ${row.lastName}`, // accessorFn used to join multiple data into a single cell
@@ -53,21 +52,21 @@ const Example = () => {
             ),
           },
           {
-            accessorKey: 'email', // accessorKey used to define `data` column. `id` gets set to accessorKey automatically
-            enableClickToCopy: true,
-            filterVariant: 'autocomplete',
-            header: 'Email',
-            size: 300,
-          },
-          {
             accessorKey: 'username', // Added column for username
             header: 'Username',
             size: 200, // Adjust size as needed
           },
           {
+            accessorKey: 'email', // accessorKey used to define `data` column. `id` gets set to accessorKey automatically
+            enableClickToCopy: true,
+            filterVariant: 'autocomplete',
+            header: 'Email',
+            size: 350,
+          },
+          {
             accessorKey: 'isAdmin', // Added column for isAdmin
             header: 'Is Admin',
-            size: 150, // Adjust size as needed
+            size: 100, // Adjust size as needed
             Cell: ({ cell }) => (
               <Box
                 component="span"
@@ -115,7 +114,7 @@ const Example = () => {
     },
     muiPaginationProps: {
       color: 'secondary',
-      rowsPerPageOptions: [10, 20, 30],
+      rowsPerPageOptions: [5, 10, 15, 20, 25, 30],
       shape: 'rounded',
       variant: 'outlined',
     },
