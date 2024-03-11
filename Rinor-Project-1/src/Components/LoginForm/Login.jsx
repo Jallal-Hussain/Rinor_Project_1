@@ -89,15 +89,16 @@ const LoginForm = () => {
           helperText={formik.touched.password && formik.errors.password}
           margin="normal"
         />
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          fullWidth
-          sx={{ mt: 2 }}
-        >
-          Login
-        </Button>
+        <Box textAlign={"center"}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            sx={{ mt: 2 }}
+          >
+            Login
+          </Button>
+        </Box>
       </Box>
       <Typography variant="body2" mt={2}>
         Not registered yet?{" "}

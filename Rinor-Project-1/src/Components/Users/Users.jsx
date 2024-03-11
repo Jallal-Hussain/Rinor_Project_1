@@ -30,7 +30,7 @@ const Example = () => {
             accessorFn: (row) => `${row.firstName} ${row.lastName}`, // accessorFn used to join multiple data into a single cell
             id: 'name', // id is still required when using accessorFn instead of accessorKey
             header: 'Name',
-            size: 250,
+            size: 200,
             Cell: ({ renderedCellValue, row }) => (
               <Box
                 sx={{
@@ -61,12 +61,12 @@ const Example = () => {
             enableClickToCopy: true,
             filterVariant: 'autocomplete',
             header: 'Email',
-            size: 350,
+            size: 300,
           },
           {
             accessorKey: 'isAdmin', // Added column for isAdmin
             header: 'Is Admin',
-            size: 100, // Adjust size as needed
+            size: 50, // Adjust size as needed
             Cell: ({ cell }) => (
               <Box
                 component="span"
@@ -132,7 +132,7 @@ const Example = () => {
       >
         <img
           alt="avatar"
-          height={200}
+          height={150}
           src={row.original.avatar}
           loading="lazy"
           style={{ borderRadius: '50%' }}
