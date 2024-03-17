@@ -5,7 +5,7 @@ import { faker } from '@faker-js/faker';
     avatar: faker.image.avatar (),
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),
-    mobile: faker.phone.number(),
+    mobile: faker.helpers.fromRegExp('+92-000-000-000'),
     arrive: faker.date.future().toLocaleDateString(),
     depart: faker.date.future().toLocaleDateString(),
     isPaid: faker.datatype.boolean(),

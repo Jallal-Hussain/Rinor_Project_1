@@ -1,5 +1,5 @@
-import React from 'react';
-import { useMemo } from 'react';
+/* eslint-disable react/prop-types */
+import { useState, useMemo } from 'react';
 import {
   MaterialReactTable,
   useMaterialReactTable,
@@ -9,11 +9,23 @@ import {
   ListItemIcon,
   MenuItem,
   Button,
+  Modal,
+  TextField,
+  Typography,
 } from '@mui/material';
 import { Edit, Delete } from '@mui/icons-material';
 import { data } from './BookingsData';
 
 const Example = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
   const columns = useMemo(
     () => [
       {
@@ -169,9 +181,47 @@ const Example = () => {
   return (
     <>
       <Box mb={2} textAlign="right">
-        <Button variant="contained" color="primary">ADD NEW+</Button>
+        <Button variant="contained" color="primary" onClick={handleModalOpen}>
+          ADD NEW+
+        </Button>
       </Box>
       <MaterialReactTable table={table} />
+
+      {/* New Bookink Form */}
+      <Modal open={isModalOpen} onClose={handleModalClose}>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+            p: 4,
+            width: 400,
+            maxWidth: '90%',
+            maxHeight: '90%',
+            overflowY: 'auto',
+          }}
+        >
+          <form>
+            <Typography variant='h5'>Add New Bookings</Typography>
+            <TextField variant = 'standard' label="First Name" fullWidth margin="normal" />
+            <TextField variant = 'standard' label="Last Name" fullWidth margin="normal" />
+            <TextField variant = 'standard' label="Mobile" fullWidth margin="normal" />
+            <TextField variant = 'standard' label="Arrive" fullWidth margin="normal" />
+            <TextField variant = 'standard' label="Depart" fullWidth margin="normal" />
+            {/* Other fields */}
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleModalClose}
+            >
+              Add Booking
+            </Button>
+          </form>
+        </Box>
+      </Modal>
     </>
   );
 };
