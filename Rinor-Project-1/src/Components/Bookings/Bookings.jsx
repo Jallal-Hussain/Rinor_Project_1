@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useState, useMemo } from 'react';
+import { useState, useMemo } from "react";
 import {
   MaterialReactTable,
   useMaterialReactTable,
-} from 'material-react-table';
+} from "material-react-table";
 import {
   Box,
   ListItemIcon,
@@ -12,9 +12,9 @@ import {
   Modal,
   TextField,
   Typography,
-} from '@mui/material';
-import { Edit, Delete } from '@mui/icons-material';
-import { data } from './BookingsData';
+} from "@mui/material";
+import { Edit, Delete } from "@mui/icons-material";
+import { data } from "./BookingsData";
 
 const Example = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,64 +29,67 @@ const Example = () => {
   const columns = useMemo(
     () => [
       {
-        id: 'users',
-        header: 'All Bookings',
+        id: "users",
+        header: "All Bookings",
         columns: [
           {
             accessorFn: (row) => `${row.firstName} ${row.lastName}`,
-            id: 'name',
-            header: 'Name',
+            id: "name",
+            header: "Name",
             size: 200,
             Cell: ({ renderedCellValue, row }) => (
               <Box
                 sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '1rem',
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "1rem",
                 }}
               >
                 <img
                   alt="avatar"
-                  height={30}
+                  height={50}
                   src={row.original.avatar}
                   loading="lazy"
-                  style={{ borderRadius: '50%' }}
+                  style={{ borderRadius: "50%" }}
                 />
                 <span>{renderedCellValue}</span>
               </Box>
             ),
           },
           {
-            accessorKey: 'mobile',
-            header: 'Mobile',
+            accessorKey: "mobile",
+            header: "Mobile",
             size: 150,
           },
           {
-            accessorKey: 'arrive',
-            header: 'Arrive',
+            accessorKey: "arrive",
+            header: "Arrive",
             size: 150,
           },
           {
-            accessorKey: 'depart',
-            header: 'Depart',
+            accessorKey: "depart",
+            header: "Depart",
             size: 150,
           },
           {
-            accessorKey: 'isPaid', // Corrected accessorKey
-            header: 'Payment', // Changed header
+            accessorKey: "isPaid", // Corrected accessorKey
+            header: "Payment", // Changed header
             size: 150,
             Cell: ({ cell }) => (
               <Box
                 component="span"
                 sx={(theme) => ({
-                  backgroundColor: cell.getValue() ? theme.palette.success.main : theme.palette.error.main,
-                  color: '#fff',
-                  borderRadius: '0.25rem',
-                  padding: '0.25rem',
-                  fontWeight: 'bold',
+                  backgroundColor: cell.getValue()
+                    ? theme.palette.success.main
+                    : theme.palette.error.main,
+                  color: "#fff",
+                  borderRadius: "0.25rem",
+                  padding: "0.25rem",
+                  fontWeight: "bold",
                 })}
               >
-                {cell.getValue() ? 'Paid' : 'Unpaid'} {/* Updated logic to display Paid or Unpaid */}
+                {cell.getValue() ? "Paid" : "Unpaid"}{" "}
+                {/* Updated logic to display Paid or Unpaid */}
               </Box>
             ),
           },
@@ -110,32 +113,32 @@ const Example = () => {
       showColumnFilters: false,
       showGlobalFilter: true,
       columnPinning: {
-        left: ['mrt-row-expand', 'mrt-row-select'],
-        right: ['mrt-row-actions'],
+        left: ["mrt-row-expand", "mrt-row-select"],
+        right: ["mrt-row-actions"],
       },
     },
-    paginationDisplayMode: 'pages',
-    positionToolbarAlertBanner: 'bottom',
+    paginationDisplayMode: "pages",
+    positionToolbarAlertBanner: "bottom",
     muiSearchTextFieldProps: {
-      size: 'small',
-      variant: 'outlined',
+      size: "small",
+      variant: "outlined",
     },
     muiPaginationProps: {
-      color: 'secondary',
+      color: "secondary",
       rowsPerPageOptions: [5, 10, 15, 20, 25, 30],
-      shape: 'rounded',
-      variant: 'outlined',
+      shape: "rounded",
+      variant: "outlined",
     },
     renderDetailPanel: ({ row }) => (
       <Box
         sx={{
-        alignItems: 'center',
-        display: 'flex',
-        justifyContent: 'space-around',
-        left: '30px',
-        maxWidth: '1000px',
-        position: 'sticky',
-        width: '100%',
+          alignItems: "center",
+          display: "flex",
+          justifyContent: "space-around",
+          left: "30px",
+          maxWidth: "1000px",
+          position: "sticky",
+          width: "100%",
         }}
       >
         <img
@@ -143,7 +146,7 @@ const Example = () => {
           height={150}
           src={row.original.avatar}
           loading="lazy"
-          style={{ borderRadius: '50%' }}
+          style={{ borderRadius: "50%" }}
         />
       </Box>
     ),
@@ -165,7 +168,7 @@ const Example = () => {
         key="delete"
         onClick={() => {
           const selectedRows = table.getSelectedRowModel().flatRows;
-          selectedRows.forEach(row => table.deleteRow(row.id));
+          selectedRows.forEach((row) => table.deleteRow(row.id));
           closeMenu();
         }}
         sx={{ m: 0 }}
@@ -191,26 +194,51 @@ const Example = () => {
       <Modal open={isModalOpen} onClose={handleModalClose}>
         <Box
           sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            bgcolor: 'background.paper',
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
             boxShadow: 24,
             p: 4,
             width: 400,
-            maxWidth: '90%',
-            maxHeight: '90%',
-            overflowY: 'auto',
+            maxWidth: "90%",
+            maxHeight: "90%",
+            overflowY: "auto",
           }}
         >
           <form>
-            <Typography variant='h5'>Add New Bookings</Typography>
-            <TextField variant = 'standard' label="First Name" fullWidth margin="normal" />
-            <TextField variant = 'standard' label="Last Name" fullWidth margin="normal" />
-            <TextField variant = 'standard' label="Mobile" fullWidth margin="normal" />
-            <TextField variant = 'standard' label="Arrive" fullWidth margin="normal" />
-            <TextField variant = 'standard' label="Depart" fullWidth margin="normal" />
+            <Typography variant="h5">Add New Bookings</Typography>
+            <TextField
+              variant="standard"
+              label="First Name"
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              variant="standard"
+              label="Last Name"
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              variant="standard"
+              label="Mobile"
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              variant="standard"
+              label="Arrive"
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              variant="standard"
+              label="Depart"
+              fullWidth
+              margin="normal"
+            />
             {/* Other fields */}
             <Button
               variant="contained"
