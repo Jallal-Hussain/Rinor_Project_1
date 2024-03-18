@@ -1,18 +1,8 @@
 import { faker } from "@faker-js/faker";
 
-// const roomImage = () => {
-//   const imageServices = ["unsplash.com", "pexels.com", "loremflickr.com"];
-//   const service =
-//     imageServices[Math.floor(Math.random() * imageServices.length)];
-//   const keywords = ["hotel room", "bedroom", "living space"];
-//   const randomKeyword = keywords[Math.floor(Math.random() * keywords.length)];
-//   return `https://${service}/search?q=${randomKeyword}`;
-// };
-
 export const data = [...Array(30)].map((_, index) => ({
   id: index + 1,
-  avatar: faker.image.urlLoremFlickr({ category: 'food' }),
-//   roomImage(),
+  avatar: faker.image.urlLoremFlickr({ category: 'nature' }),
   roomType: faker.helpers.arrayElements([
     "Single",
     "Double",

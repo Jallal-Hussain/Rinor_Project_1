@@ -7,7 +7,7 @@ import {
 } from "material-react-table";
 
 // Material UI Imports
-import { Box, ListItemIcon, MenuItem } from "@mui/material";
+import { Box, ListItemIcon, MenuItem, } from "@mui/material";
 
 // Icons Imports
 import { Edit, Delete } from "@mui/icons-material";
@@ -40,7 +40,7 @@ const Example = () => {
                   height={50}
                   src={row.original.avatar}
                   loading="lazy"
-                  style={{ borderRadius: "50%" }}
+                  style={{ border: "2px solid teal", borderRadius: "50%" }}
                 />
                 {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}
                 <span>{renderedCellValue}</span>
@@ -48,12 +48,12 @@ const Example = () => {
             ),
           },
           {
-            accessorKey: "username", // Added column for username
+            accessorKey: "username", 
             header: "Username",
-            size: 200, // Adjust size as needed
+            size: 200, 
           },
           {
-            accessorKey: "email", // accessorKey used to define `data` column. `id` gets set to accessorKey automatically
+            accessorKey: "email",
             enableClickToCopy: true,
             filterVariant: "autocomplete",
             header: "Email",
@@ -133,7 +133,7 @@ const Example = () => {
           height={150}
           src={row.original.avatar}
           loading="lazy"
-          style={{ borderRadius: "50%" }}
+          style={{border: "5px solid teal", borderRadius: "50%" }}
         />
       </Box>
     ),
