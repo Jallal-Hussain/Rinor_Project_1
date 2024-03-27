@@ -50,7 +50,7 @@ const Example = () => {
                   height={50}
                   src={row.original.avatar}
                   loading="lazy"
-                  style={{ borderRadius: "50%" }}
+                  style={{ border: "2px solid teal", borderRadius: "50%" }}
                 />
                 <span>{renderedCellValue}</span>
               </Box>
@@ -146,7 +146,7 @@ const Example = () => {
           height={150}
           src={row.original.avatar}
           loading="lazy"
-          style={{ borderRadius: "50%" }}
+          style={{ border: "5px solid teal", borderRadius: "50%" }}
         />
       </Box>
     ),

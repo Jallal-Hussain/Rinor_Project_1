@@ -41,7 +41,7 @@ const Example = () => {
               height={100}
               src={row.original.avatar}
               loading="lazy"
-              style={{ borderRadius: "5px" }}
+              style={{ border: "2px solid teal", borderRadius: "5px" }}
             />
           </Box>
         ),
@@ -146,7 +146,7 @@ const Example = () => {
           height={300}
           src={row.original.avatar}
           loading="lazy"
-          style={{ borderRadius: "5px" }}
+          style={{ border: "5px solid teal", borderRadius: "5px" }}
         />
       </Box>
     ),
@@ -223,7 +223,7 @@ const Example = () => {
             />
             <TextField
               variant="standard"
-              label="Rent(in dollars)"
+              label="Rent"
               fullWidth
               margin="normal"
             />
