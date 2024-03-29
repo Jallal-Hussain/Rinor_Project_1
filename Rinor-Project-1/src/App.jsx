@@ -22,13 +22,14 @@ import GroupIcon from "@mui/icons-material/Group";
 import HotelIcon from "@mui/icons-material/Hotel";
 import NightShelterIcon from "@mui/icons-material/NightShelter";
 import BookIcon from "@mui/icons-material/Book";
-import Dashboard from "./Components/Dashboard";
+import Dashboard from "./Components/Dashboard/Dashboard.jsx";
 import Bookings from "./Components/Bookings/Bookings";
 import Hotels from "./Components/Hotels/Hotels";
 import Rooms from "./Components/Rooms/Rooms";
 import Users from "./Components/Users/Users";
 import LoginForm from "./Components/LoginForm/Login";
 import Register from "./Components/LoginForm/Register";
+// import './style.css';
 
 function App() {
   const drawerWidth = 240;
