@@ -1,63 +1,221 @@
-import React from 'react';
-import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+/* eslint-disable no-unused-vars */
+import React from "react";
+import { Card, CardContent, Typography, Grid } from "@mui/material";
+import { Doughnut, Line, Bar, PolarArea } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  RadialLinearScale,
+  BarElement,
+} from "chart.js";
 
-const Dashboard = () => {
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  BarElement,
+  RadialLinearScale
+);
+
+function Dashboard() {
   return (
-    <div>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={6} md={4}>
-          <Card>
-            <CardContent>
-              <Typography variant="h5" component="div">
-                Total Users
-              </Typography>
-              <Typography variant="h4" color="textPrimary">
-                100
-              </Typography>
-              <IconButton aria-label="settings">
-                <MoreVertIcon />
-              </IconButton>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <Card>
-            <CardContent>
-              <Typography variant="h5" component="div">
-                New Orders
-              </Typography>
-              <Typography variant="h4" color="textPrimary">
-                25
-              </Typography>
-              <IconButton aria-label="settings">
-                <MoreVertIcon />
-              </IconButton>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <Card>
-            <CardContent>
-              <Typography variant="h5" component="div">
-                Revenue
-              </Typography>
-              <Typography variant="h4" color="textPrimary">
-                $1,500
-              </Typography>
-              <IconButton aria-label="settings">
-                <MoreVertIcon />
-              </IconButton>
-            </CardContent>
-          </Card>
+    <Grid container spacing={2} justifyContent="center">
+      <Grid item xs={12}>
+        <Typography
+          variant="h4"
+          color="textPrimary"
+          gutterBottom
+          textAlign={"center"}
+        >
+          Dashboard
+        </Typography>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
+            <Card sx={{ margin: "1.67rem", minWidth: 50 }}>
+              <CardContent>
+                <Grid container spacing={1}>
+                  <Grid item md={12}>
+                    <Doughnut
+                      options={{
+                        responsive: true,
+                        plugins: {
+                          title: {
+                            display: true,
+                            text: "Revenue Sources",
+                          },
+                        },
+                      }}
+                      data={{
+                        labels: ["Direct", "Referral", "Social"],
+                        datasets: [
+                          {
+                            data: [55, 30, 15],
+                            backgroundColor: [
+                              "rgb(255, 99, 132)",
+                              "rgb(54, 162, 235)",
+                              "lightgreen",
+                            ],
+                            hoverOffset: 4,
+                          },
+                        ],
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card sx={{ margin: "1.67rem", minWidth: 50 }}>
+              <CardContent>
+                <Grid container spacing={1}>
+                  <Grid item md={12}>
+                    <Line
+                      options={{
+                        responsive: true,
+                        plugins: {
+                          legend: {
+                            position: "top",
+                          },
+                          title: {
+                            display: true,
+                            text: "Earnings Overview",
+                          },
+                        },
+                      }}
+                      data={{
+                        labels: [
+                          "January",
+                          "February",
+                          "March",
+                          "April",
+                          "May",
+                          "June",
+                          "July",
+                        ],
+                        datasets: [
+                          {
+                            label: "Earnings in $",
+                            data: [0, 10000, 5000, 15000, 13000, 22000, 33000],
+                            fill: false,
+                            borderColor: "rgb(75, 192, 192)",
+                            tension: 0.1,
+                          },
+                        ],
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card sx={{ margin: "1.67rem", minWidth: 50 }}>
+              <CardContent>
+                <Grid container spacing={1}>
+                  <Grid item md={12}>
+                    <Bar
+                      options={{
+                        responsive: true,
+                        plugins: {
+                          legend: {
+                            position: "top",
+                          },
+                          title: {
+                            display: true,
+                            text: "Bar Chart",
+                          },
+                        },
+                      }}
+                      data={{
+                        labels: ["A", "B", "C", "D", "E"],
+                        datasets: [
+                          {
+                            label: "Data",
+                            data: [12, 19, 3, 5, 2],
+                            backgroundColor: [
+                              "rgb(255, 99, 132)",
+                              "rgb(54, 162, 235)",
+                              "lightgreen",
+                              "rgb(255, 205, 86)",
+                              "rgb(75, 192, 192)",
+                            ],
+                          },
+                          {
+                            label: "Data",
+                            data: [20, 30, 8, 9, 9],
+                            backgroundColor: [
+                              "rgb(255, 95, 100)",
+                              "rgb(54, 160, 100)",
+                              "lightgreen",
+                              "rgb(255, 100, 70)",
+                              "rgb(20, 155, 200)",
+                            ],
+                          },
+                        ],
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card sx={{ margin: "1.67rem", minWidth: 50 }}>
+              <CardContent>
+                <Grid container spacing={1}>
+                  <Grid item md={12}>
+                    <PolarArea
+                      options={{
+                        responsive: true,
+                        plugins: {
+                          legend: {
+                            position: "top",
+                          },
+                          title: {
+                            display: true,
+                            text: "Polar Area Chart",
+                          },
+                        },
+                      }}
+                      data={{
+                        labels: ["Red", "Blue", "Yellow", "Green", "Purple"],
+                        datasets: [
+                          {
+                            label: "Data",
+                            data: [11, 16, 7, 3, 14],
+                            backgroundColor: [
+                              "rgb(255, 99, 132)",
+                              "rgb(54, 162, 235)",
+                              "lightgreen",
+                              "rgb(255, 205, 86)",
+                              "rgb(153, 102, 255)",
+                            ],
+                          },
+                        ],
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
         </Grid>
       </Grid>
-    </div>
+    </Grid>
   );
-};
+}
 
 export default Dashboard;
