@@ -67,11 +67,11 @@ const Example = () => {
             header: "Address",
             size: 150,
           },
-          {
-            accessorKey: "distance",
-            header: "Distance",
-            size: 150,
-          },
+          // {
+          //   accessorKey: "distance",
+          //   header: "Distance",
+          //   size: 150,
+          // },
           {
             accessorKey: "rating",
             header: "Rating",
@@ -82,11 +82,11 @@ const Example = () => {
             header: "Cheapest Price", 
             size: 150,
           },
-          // {
-          //   accessorKey: "featured",
-          //   header: "Featured", 
-          //   size: 150,
-          // },
+          {
+            accessorKey: "featured",
+            header: "Featured", 
+            size: 150,
+          },
         ],
       },
     ],

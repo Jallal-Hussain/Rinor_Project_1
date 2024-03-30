@@ -5,14 +5,14 @@ export const data = [...Array(30)].map((_, index) => ({
     type: faker.helpers.arrayElement(["Resort", "Hotel", "Motel", "Inn"]),
     city: faker.location.city(),
     address: faker.location.streetAddress(),
-    distance: faker.number.int({ min: 1, max: 20 }) + " km",
+    // distance: faker.number.int({ min: 1, max: 20 }) + " km",
     photos: [faker.image.url('https://loremflickr.com/640/480?lock=1234'), faker.image.url('https://loremflickr.com/640/480?lock=1234'), faker.image.url('https://loremflickr.com/640/480?lock=1234')],
     title: faker.lorem.sentence(),
     desc: faker.lorem.paragraph(),
     rating: faker.number.float({ min: 0, max: 5, multipleOf: 0.1 }),
     rooms: generateRooms(),
     cheapestPrice: faker.commerce.price({ min: 50, max: 300, dec: 0, symbol: "$" }),
-    featured: faker.datatype.boolean(),
+    featured: faker.helpers.arrayElement(["For Couple", "For Family", "For Foreign", " For Local"]),
   }));
   
   // Function to generate rooms data (example implementation)
