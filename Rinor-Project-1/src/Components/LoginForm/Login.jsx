@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
@@ -6,7 +7,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-
+import axios from 'axios'
 const validationSchema = Yup.object({
   username: Yup.string()
     .required("Username is required")
@@ -27,9 +28,16 @@ const LoginForm = () => {
       password: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      // Handle form submission
-      console.log(values);
+    onSubmit: async (values) => {
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/api/auth/login",
+          values
+        );
+        console.log(response.data); // Assuming response contains user data or token
+      } catch (error) {
+        console.error("Error:", error);
+      }
     },
   });
 

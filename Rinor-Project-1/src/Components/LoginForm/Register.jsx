@@ -1,4 +1,5 @@
 import React from "react";
+import axios from 'axios'
 import {
   Grid,
   Box,
@@ -56,13 +57,18 @@ export const Register = () => {
       gender: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values, { resetForm }) => {
-      // Handle form submission
-      console.log(values);
-      // Reset form after submission
-      resetForm();
-      // Open the modal after the submission
-      handleOpen();
+    onSubmit: async (values, { resetForm }) => {
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/api/auth/register",
+          values, 
+        );
+        console.log(response.data); // Assuming response contains user data or token
+        resetForm();
+        handleOpen();
+      } catch (error) {
+        console.error("Error:", error);
+      }
     },
   });
 
