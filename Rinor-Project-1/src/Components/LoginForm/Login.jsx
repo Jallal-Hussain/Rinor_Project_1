@@ -9,9 +9,9 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import axios from 'axios'
 const validationSchema = Yup.object({
-  username: Yup.string()
-    .required("Username is required")
-    .matches(/^\S*$/, "Username should not contain spaces"),
+  // username: Yup.string()
+  //   .required("Username is required")
+  //   .matches(/^\S*$/, "Username should not contain spaces"),
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
@@ -23,18 +23,19 @@ const validationSchema = Yup.object({
 const LoginForm = () => {
   const formik = useFormik({
     initialValues: {
-      username: "",
+      // username: "",
       email: "",
       password: "",
     },
     validationSchema: validationSchema,
-    onSubmit: async (values) => {
+    onSubmit: async (values, { resetForm }) => {
       try {
         const response = await axios.post(
           "http://localhost:8000/api/auth/login",
-          values
+          values, 
         );
-        console.log(response.data); // Assuming response contains user data or token
+        console.log(response.data);
+        resetForm();
       } catch (error) {
         console.error("Error:", error);
       }
@@ -59,7 +60,7 @@ const LoginForm = () => {
         onSubmit={formik.handleSubmit}
         sx={{ width: "300px", mt: 2 }}
       >
-        <TextField
+        {/* <TextField
           fullWidth
           id="username"
           name="username"
@@ -70,7 +71,7 @@ const LoginForm = () => {
           error={formik.touched.username && Boolean(formik.errors.username)}
           helperText={formik.touched.username && formik.errors.username}
           margin="normal"
-        />
+        /> */}
         <TextField
           fullWidth
           id="email"
