@@ -1,5 +1,5 @@
 import React from "react";
-import axios from 'axios'
+import axios from "axios";
 import {
   Grid,
   Box,
@@ -61,7 +61,7 @@ export const Register = () => {
       try {
         const response = await axios.post(
           "http://localhost:8000/api/auth/register",
-          values, 
+          values
         );
         console.log(response.data); // Assuming response contains user data or token
         resetForm();

@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import axios from 'axios'
+import axios from "axios";
 const validationSchema = Yup.object({
   // username: Yup.string()
   //   .required("Username is required")
@@ -32,7 +32,7 @@ const LoginForm = () => {
       try {
         const response = await axios.post(
           "http://localhost:8000/api/auth/login",
-          values, 
+          values
         );
         console.log(response.data);
         resetForm();
