@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Box from "@mui/material/Box";
@@ -21,6 +21,7 @@ const validationSchema = Yup.object({
 });
 
 const LoginForm = () => {
+  const Navigate= useNavigate();
   const formik = useFormik({
     initialValues: {
       // username: "",
@@ -34,7 +35,8 @@ const LoginForm = () => {
           "http://localhost:8000/api/auth/login",
           values
         );
-        console.log(response.data);
+        console.log(response);
+        Navigate('/')
         resetForm();
       } catch (error) {
         console.error("Error:", error);

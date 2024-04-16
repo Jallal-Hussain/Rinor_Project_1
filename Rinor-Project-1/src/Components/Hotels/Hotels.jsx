@@ -15,26 +15,65 @@ import {
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 import { data } from "./HotelsData"; // Import data from your generated file
+import axios from "axios";
 
 const Example = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    city: "",
+    address: "",
+    distance: "",
+    rating: "",
+    cheapestPrice: "",
+    featured: false,
+    type: "",
+    title: "",
+    desc: "",
+  });
+  const resetForm = () => {
+    setFormData({
+      name: "",
+      city: "",
+      address: "",
+      distance: "",
+      rating: "",
+      cheapestPrice: "",
+      featured: false,
+      type: "",
+      title: "",
+      desc: "",
+    });
+  };
+  const handleChange = (event) => {
+    const { name, value, type } = event.target;
+    // For checkbox, handle value as boolean
+    const newValue = type === "checkbox" ? event.target.checked : value;
+    setFormData({ ...formData, [name]: newValue });
+  };
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleModalOpen = () => {
     setIsModalOpen(true);
   };
 
-  const handleModalClose = () => {
+  const handleModalClose = async () => {
+    await axios
+      .post("http://localhost:8000/api/hotels/", formData)
+      .then((res) => {
+        console.log("data", res.data);
+      });
+    resetForm();
     setIsModalOpen(false);
   };
 
   const columns = useMemo(
     () => [
       {
-        id: "hotels", 
+        id: "hotels",
         header: "Hotels",
         columns: [
           {
-            accessorFn: (row) => row.name, 
+            accessorFn: (row) => row.name,
             id: "name",
             header: "Name",
             size: 200,
@@ -59,7 +98,7 @@ const Example = () => {
           },
           {
             accessorKey: "city",
-            header: "City", 
+            header: "City",
             size: 150,
           },
           {
@@ -79,14 +118,14 @@ const Example = () => {
           },
           {
             accessorKey: "cheapestPrice",
-            header: "Cheapest Price", 
+            header: "Cheapest Price",
             size: 150,
           },
-          {
-            accessorKey: "featured",
-            header: "Featured", 
-            size: 150,
-          },
+          // {
+          //   accessorKey: "featured",
+          //   header: "Featured",
+          //   size: 150,
+          // },
         ],
       },
     ],
@@ -130,8 +169,8 @@ const Example = () => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          padding: "16px", 
-          textAlign: "center", 
+          padding: "16px",
+          textAlign: "center",
           maxWidth: "100%",
         }}
       >
@@ -139,14 +178,21 @@ const Example = () => {
           alt="avatar"
           src={row.original.photos[0]}
           loading="lazy"
-          style={{ maxWidth: "100%", height: "auto", border: "2px solid teal", borderRadius: "5px", marginBottom: "16px" }}
+          style={{
+            maxWidth: "100%",
+            height: "auto",
+            border: "2px solid teal",
+            borderRadius: "5px",
+            marginBottom: "16px",
+          }}
         />
-        <Typography variant="h5" sx={{ marginBottom: "8px" }}>{row.original.title}</Typography>
+        <Typography variant="h5" sx={{ marginBottom: "8px" }}>
+          {row.original.title}
+        </Typography>
         <Typography variant="body1">{row.original.desc}</Typography>
       </Box>
     ),
-    
-    
+
     renderRowActionMenuItems: ({ closeMenu, table }) => [
       <MenuItem
         key="edit"
@@ -208,67 +254,120 @@ const Example = () => {
             <Typography variant="h5">Add New Booking</Typography>
             <TextField
               variant="standard"
-              label="Hotel Name"
+              label="Name"
               fullWidth
               margin="normal"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
             />
             <TextField
               variant="standard"
               label="City"
               fullWidth
               margin="normal"
+              name="city"
+              value={formData.city}
+              onChange={handleChange}
             />
             <TextField
               variant="standard"
               label="Address"
               fullWidth
               margin="normal"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
             />
             <TextField
               variant="standard"
               label="Distance"
               fullWidth
               margin="normal"
+              name="distance"
+              value={formData.distance}
+              onChange={handleChange}
             />
             <TextField
               variant="standard"
               label="Rating"
               fullWidth
               margin="normal"
+              name="rating"
+              value={formData.rating}
+              onChange={handleChange}
             />
             <TextField
               variant="standard"
               label="Cheapest Price"
               fullWidth
               margin="normal"
+              name="cheapestPrice"
+              value={formData.cheapestPrice}
+              onChange={handleChange}
             />
             <TextField
               variant="standard"
               label="Featured"
               fullWidth
               margin="normal"
+              name="featured"
+              value={formData.featured}
+              onChange={handleChange}
+            />
+            <TextField
+              variant="standard"
+              label="Type"
+              fullWidth
+              margin="normal"
+              name="type"
+              value={formData.type}
+              onChange={handleChange}
+            />
+            <TextField
+              variant="standard"
+              label="Title"
+              fullWidth
+              margin="normal"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+            />
+            <TextField
+              variant="standard"
+              label="Description"
+              fullWidth
+              margin="normal"
+              name="desc"
+              value={formData.desc}
+              onChange={handleChange}
             />
             {/* Other fields */}
-            <Box sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  gap: "1rem",
-                }} >
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleModalClose}
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: "1rem",
+              }}
             >
-              Close
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleModalClose}
-            >
-              Add Booking
-            </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  resetForm();
+                  setIsModalOpen(false);
+                }}
+              >
+                Close
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleModalClose}
+              >
+                Add Booking
+              </Button>
             </Box>
           </form>
         </Box>

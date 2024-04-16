@@ -18,8 +18,10 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
+  const Navigate = useNavigate();
   // Define the validation schema using Yup
   const validationSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -61,9 +63,10 @@ export const Register = () => {
       try {
         const response = await axios.post(
           "http://localhost:8000/api/auth/register",
-          values,
+          values
         );
         console.log(response.data);
+
         resetForm();
         handleOpen();
       } catch (error) {
@@ -83,6 +86,7 @@ export const Register = () => {
   // Handle the modal close event
   const handleClose = () => {
     setOpen(false);
+    Navigate('/login')
   };
 
   return (
