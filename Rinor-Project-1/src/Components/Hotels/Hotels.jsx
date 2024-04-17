@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
   MaterialReactTable,
   useMaterialReactTable,
@@ -14,11 +14,11 @@ import {
   Typography,
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
-import { data } from "./HotelsData"; // Import data from your generated file
+// import { data } from "./HotelsData"; // Import data from your generated file
 import axios from "axios";
 
 const Example = () => {
-  const [formData, setFormData] = useState({
+  const [hotelData, sethotelData] = useState({
     name: "",
     city: "",
     address: "",
@@ -30,8 +30,9 @@ const Example = () => {
     title: "",
     desc: "",
   });
+
   const resetForm = () => {
-    setFormData({
+    sethotelData({
       name: "",
       city: "",
       address: "",
@@ -48,7 +49,7 @@ const Example = () => {
     const { name, value, type } = event.target;
     // For checkbox, handle value as boolean
     const newValue = type === "checkbox" ? event.target.checked : value;
-    setFormData({ ...formData, [name]: newValue });
+    sethotelData({ ...hotelData, [name]: newValue });
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -58,13 +59,28 @@ const Example = () => {
 
   const handleModalClose = async () => {
     await axios
-      .post("http://localhost:8000/api/hotels/", formData)
+      .post("http://localhost:8000/api/hotels/", hotelData)
       .then((res) => {
         console.log("data", res.data);
       });
     resetForm();
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    const fetchHotelData = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/api/hotels/hotels");
+        const data = response.data;
+        sethotelData(data);
+       // console.log(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchHotelData();
+  }, []);
 
   const columns = useMemo(
     () => [
@@ -118,7 +134,7 @@ const Example = () => {
           },
           {
             accessorKey: "cheapestPrice",
-            header: "Cheapest Price",
+            header: "Cheapest Price ($)",
             size: 150,
           },
           // {
@@ -134,7 +150,7 @@ const Example = () => {
 
   const table = useMaterialReactTable({
     columns,
-    data,
+    data: hotelData,
     enableColumnFilterModes: true,
     enableColumnOrdering: true,
     enableGrouping: true,
@@ -258,7 +274,7 @@ const Example = () => {
               fullWidth
               margin="normal"
               name="name"
-              value={formData.name}
+              value={hotelData.name}
               onChange={handleChange}
             />
             <TextField
@@ -267,7 +283,7 @@ const Example = () => {
               fullWidth
               margin="normal"
               name="city"
-              value={formData.city}
+              value={hotelData.city}
               onChange={handleChange}
             />
             <TextField
@@ -276,7 +292,7 @@ const Example = () => {
               fullWidth
               margin="normal"
               name="address"
-              value={formData.address}
+              value={hotelData.address}
               onChange={handleChange}
             />
             <TextField
@@ -285,7 +301,7 @@ const Example = () => {
               fullWidth
               margin="normal"
               name="distance"
-              value={formData.distance}
+              value={hotelData.distance}
               onChange={handleChange}
             />
             <TextField
@@ -294,7 +310,7 @@ const Example = () => {
               fullWidth
               margin="normal"
               name="rating"
-              value={formData.rating}
+              value={hotelData.rating}
               onChange={handleChange}
             />
             <TextField
@@ -303,7 +319,7 @@ const Example = () => {
               fullWidth
               margin="normal"
               name="cheapestPrice"
-              value={formData.cheapestPrice}
+              value={hotelData.cheapestPrice}
               onChange={handleChange}
             />
             <TextField
@@ -312,7 +328,7 @@ const Example = () => {
               fullWidth
               margin="normal"
               name="featured"
-              value={formData.featured}
+              value={hotelData.featured}
               onChange={handleChange}
             />
             <TextField
@@ -321,7 +337,7 @@ const Example = () => {
               fullWidth
               margin="normal"
               name="type"
-              value={formData.type}
+              value={hotelData.type}
               onChange={handleChange}
             />
             <TextField
@@ -330,7 +346,7 @@ const Example = () => {
               fullWidth
               margin="normal"
               name="title"
-              value={formData.title}
+              value={hotelData.title}
               onChange={handleChange}
             />
             <TextField
@@ -339,7 +355,7 @@ const Example = () => {
               fullWidth
               margin="normal"
               name="desc"
-              value={formData.desc}
+              value={hotelData.desc}
               onChange={handleChange}
             />
             {/* Other fields */}

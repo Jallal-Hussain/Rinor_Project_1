@@ -73,14 +73,14 @@ function App() {
   const DrawerHeader = styled("div")(({ theme }) => ({
     display: "flex",
     alignItems: "center",
-    padding: theme.spacing(0, 1),
+    padding: theme.spacing(0, 1, 0, 4),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
   }));
 
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -93,10 +93,10 @@ function App() {
   // Define an array of objects for menu items
   const menuItems = [
     { title: "Dashboard", icon: <DashboardIcon />, path: "/" },
-    { title: "Users", icon: <GroupIcon />, path: "/users" },
     { title: "Hotels", icon: <NightShelterIcon />, path: "/hotels" },
-    { title: "Bookings", icon: <BookIcon />, path: "/bookings" },
     { title: "Rooms", icon: <HotelIcon />, path: "/rooms" },
+    { title: "Bookings", icon: <BookIcon />, path: "/bookings" },
+    { title: "Users", icon: <GroupIcon />, path: "/users" },
   ];
 
   return (
@@ -117,7 +117,8 @@ function App() {
             {/* Logo */}
             <Box
               sx={{
-                display: "flex",
+                ...(open && { display: "none" }),
+                justifyContent: "space-around",
                 alignItems: "center",
                 minWidth: 100,
                 width: 120,
@@ -156,6 +157,20 @@ function App() {
           open={open}
         >
           <DrawerHeader>
+          <Box
+              sx={{
+                minWidth: 100,
+                width: 120,
+                height: 50,
+                marginRight: 2
+              }}
+            >
+              <img
+                src="./src/assets/rinor.png"
+                alt="RINOR"
+                style={{ maxWidth: "90%", height: "auto " }}
+              />
+            </Box>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === "ltr" ? (
                 <ChevronLeftIcon />
