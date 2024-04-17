@@ -14,11 +14,12 @@ import {
   Typography,
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
-// import { data } from "./HotelsData"; // Import data from your generated file
+// import { data } from "./HotelsData";
 import axios from "axios";
 
 const Example = () => {
-  const [hotelData, sethotelData] = useState({
+  const [hotelList, setHotelList] = useState([]);
+  const [hotelData, setHotelData] = useState({
     name: "",
     city: "",
     address: "",
@@ -32,7 +33,7 @@ const Example = () => {
   });
 
   const resetForm = () => {
-    sethotelData({
+    setHotelData({
       name: "",
       city: "",
       address: "",
@@ -47,40 +48,49 @@ const Example = () => {
   };
   const handleChange = (event) => {
     const { name, value, type } = event.target;
-    // For checkbox, handle value as boolean
     const newValue = type === "checkbox" ? event.target.checked : value;
-    sethotelData({ ...hotelData, [name]: newValue });
+    setHotelData({ ...hotelData, [name]: newValue });
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleModalOpen = () => {
     setIsModalOpen(true);
   };
+  const fetchHotelData = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8000/api/hotels/hotels"
+      );
+      console.log("Hotels", response.data);
+      setHotelList(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   const handleModalClose = async () => {
-    await axios
-      .post("http://localhost:8000/api/hotels/", hotelData)
-      .then((res) => {
-        console.log("data", res.data);
-      });
+    await axios.post("http://localhost:8000/api/hotels/", hotelData);
+
     resetForm();
     setIsModalOpen(false);
   };
+  let handleDelete = async (id) => {
+    // console.log("id", id);
+    try {
+      const confirmDelete = window.confirm(
+        "Are you sure you want to delete the data?"
+      );
+      if (confirmDelete) {
+        await axios.delete(`http://localhost:8000/api/hotels/${id}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    const fetchHotelData = async () => {
-      try {
-        const response = await axios.get("http://localhost:8000/api/hotels/hotels");
-        const data = response.data;
-        sethotelData(data);
-       // console.log(response.data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
     fetchHotelData();
-  }, []);
+  }, [hotelList]);
 
   const columns = useMemo(
     () => [
@@ -150,7 +160,7 @@ const Example = () => {
 
   const table = useMaterialReactTable({
     columns,
-    data: hotelData,
+    data: hotelList,
     enableColumnFilterModes: true,
     enableColumnOrdering: true,
     enableGrouping: true,
@@ -158,6 +168,7 @@ const Example = () => {
     enableFacetedValues: true,
     enableRowActions: true,
     enableRowSelection: true,
+    getRowId: (row) => row.id,
     initialState: {
       showColumnFilters: false,
       showGlobalFilter: true,
@@ -209,12 +220,12 @@ const Example = () => {
       </Box>
     ),
 
-    renderRowActionMenuItems: ({ closeMenu, table }) => [
+    renderRowActionMenuItems: (params) => [
       <MenuItem
         key="edit"
         onClick={() => {
           // Edit logic...
-          closeMenu();
+          params.closeMenu();
         }}
         sx={{ m: 0 }}
       >
@@ -226,9 +237,9 @@ const Example = () => {
       <MenuItem
         key="delete"
         onClick={() => {
-          const selectedRows = table.getSelectedRowModel().flatRows;
-          selectedRows.forEach((row) => table.deleteRow(row.id));
-          closeMenu();
+          handleDelete(params.row.original._id);
+
+          params.closeMenu();
         }}
         sx={{ m: 0 }}
       >
