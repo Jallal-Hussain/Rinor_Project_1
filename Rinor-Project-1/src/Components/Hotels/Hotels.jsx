@@ -61,7 +61,6 @@ const Example = () => {
       const response = await axios.get(
         "http://localhost:8000/api/hotels/hotels"
       );
-      console.log("Hotels", response.data);
       setHotelList(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -74,6 +73,18 @@ const Example = () => {
     resetForm();
     setIsModalOpen(false);
   };
+
+  const handleUpdate = async (id) => {
+    try {
+      await axios.put(`http://localhost:8000/api/hotels/${id}`, hotelData);
+      
+      resetForm();
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("Error updating data:", error);
+    }
+  };  
+
   let handleDelete = async (id) => {
     // console.log("id", id);
     try {
@@ -225,6 +236,7 @@ const Example = () => {
         key="edit"
         onClick={() => {
           // Edit logic...
+          handleUpdate(params.row.original._id)
           params.closeMenu();
         }}
         sx={{ m: 0 }}
@@ -238,7 +250,6 @@ const Example = () => {
         key="delete"
         onClick={() => {
           handleDelete(params.row.original._id);
-
           params.closeMenu();
         }}
         sx={{ m: 0 }}
@@ -278,7 +289,7 @@ const Example = () => {
           }}
         >
           <form>
-            <Typography variant="h5">Add New Booking</Typography>
+            <Typography variant="h5">Add New Hotel</Typography>
             <TextField
               variant="standard"
               label="Name"
@@ -379,7 +390,7 @@ const Example = () => {
               }}
             >
               <Button
-                variant="contained"
+                variant="outlined"
                 color="primary"
                 onClick={() => {
                   resetForm();
@@ -393,7 +404,7 @@ const Example = () => {
                 color="primary"
                 onClick={handleModalClose}
               >
-                Add Booking
+                Add Hotel
               </Button>
             </Box>
           </form>
