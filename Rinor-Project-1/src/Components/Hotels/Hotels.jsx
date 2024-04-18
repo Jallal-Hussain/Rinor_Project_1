@@ -13,7 +13,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Edit, Delete, VisibilityIcon } from "@mui/icons-material";
+import { Edit, Delete, Visibility } from "@mui/icons-material";
 // import { data } from "./HotelsData";
 import axios from "axios";
 
@@ -248,16 +248,14 @@ const Example = () => {
         onClick={() => {
           setHotelData(
             hotelList.find((item) => item._id === params.row.original._id)
-          )
-          setId(params.row.original._id)
-          setIsModalOpen(true);
-
+          );
+          setId(params.row.original._id);
           params.closeMenu();
         }}
         sx={{ m: 0 }}
       >
         <ListItemIcon>
-          <VisibilityIcon/>
+          <Visibility />
         </ListItemIcon>
         View
       </MenuItem>,
@@ -266,8 +264,8 @@ const Example = () => {
         onClick={() => {
           setHotelData(
             hotelList.find((item) => item._id === params.row.original._id)
-          )
-          setId(params.row.original._id)
+          );
+          setId(params.row.original._id);
           setIsModalOpen(true);
 
           params.closeMenu();
