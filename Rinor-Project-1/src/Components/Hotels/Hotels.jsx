@@ -19,6 +19,7 @@ import axios from "axios";
 
 const Example = () => {
   const [hotelList, setHotelList] = useState([]);
+  const [id, setId] = useState("");
   const [hotelData, setHotelData] = useState({
     name: "",
     city: "",
@@ -68,22 +69,32 @@ const Example = () => {
   };
 
   const handleModalClose = async () => {
-    await axios.post("http://localhost:8000/api/hotels/", hotelData);
+    if (id === "") {
+      //  const {id, ...data}=hotelData
+      await axios.post("http://localhost:8000/api/hotels/", hotelData);
 
-    resetForm();
-    setIsModalOpen(false);
-  };
-
-  const handleUpdate = async (id) => {
-    try {
-      await axios.put(`http://localhost:8000/api/hotels/${id}`, hotelData);
-      
       resetForm();
       setIsModalOpen(false);
+    } else {
+      // console.log("id", id);
+      handleUpdate(id);
+    }
+  };
+  const handleUpdate = async (id) => {
+    try {
+      console.log("id", id);
+
+      await axios
+        .put(`http://localhost:8000/api/hotels/${id}`, hotelData)
+        .then(() => {
+          resetForm();
+          setId("");
+          setIsModalOpen(false);
+        });
     } catch (error) {
       console.error("Error updating data:", error);
     }
-  };  
+  };
 
   let handleDelete = async (id) => {
     // console.log("id", id);
@@ -235,8 +246,12 @@ const Example = () => {
       <MenuItem
         key="edit"
         onClick={() => {
-          // Edit logic...
-          handleUpdate(params.row.original._id)
+          setHotelData(
+            hotelList.find((item) => item._id === params.row.original._id)
+          )
+          setId(params.row.original._id)
+          setIsModalOpen(true);
+
           params.closeMenu();
         }}
         sx={{ m: 0 }}
@@ -404,7 +419,7 @@ const Example = () => {
                 color="primary"
                 onClick={handleModalClose}
               >
-                Add Hotel
+                {id === "" ? "Add Hotel" : "Update Hotel"}
               </Button>
             </Box>
           </form>
