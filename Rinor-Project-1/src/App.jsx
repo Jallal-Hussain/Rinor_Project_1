@@ -29,6 +29,7 @@ import Rooms from "./Components/Rooms/Rooms";
 import Users from "./Components/Users/Users";
 import LoginForm from "./Components/LoginForm/Login";
 import Register from "./Components/LoginForm/Register";
+import SingleHotel from "./Components/Hotels/SingleHotel.jsx";
 // import './style.css';
 
 function App() {
@@ -202,6 +203,7 @@ function App() {
             <Route path="/hotels" element={<Hotels />} />
             <Route path="/bookings" element={<Bookings />} />
             <Route path="/rooms" element={<Rooms />} />
+            <Route path='/hotel/:id' element={<SingleHotel />} />
           </Routes>
         </Main>
       </Box>
